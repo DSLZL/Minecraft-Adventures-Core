@@ -37,6 +37,7 @@ jobs:
     # 4. 构建项目
     - name: Build with Gradle
       run: |
+        chmod +x gradlew
         ./gradlew build
 
     # 5. 上传构建产物
