@@ -1,0 +1,47 @@
+name: Gradle Build with Java 1.8 and Caching
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 检出代码
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. 设置 Java 1.8 环境
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '1.8'
+        distribution: 'temurin'
+
+    # 3. 添加 Gradle 依赖缓存
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    # 4. 构建项目
+    - name: Build with Gradle
+      run: |
+        ./gradlew build
+
+    # 5. 上传构建产物
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-app-jar
+        path: build/libs/*.jar
+        retention-days: 7
