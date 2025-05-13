@@ -41,7 +41,7 @@ jobs:
 
     # 5. 上传构建产物
     - name: Upload JAR artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: my-app-jar
         path: build/libs/*.jar
