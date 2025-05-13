@@ -1,4 +1,5 @@
 package net.mrbt0907.util.util.math;
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**A simple math library that can be used to simplify math related calculations*/
@@ -8,7 +9,7 @@ public class Maths
 	private static final double[] ASIN_TABLE = new double[65536];
 	public static final double QTR_PI = Math.PI / 4.0D;
 	public static final double THREE_QTR_PI = 3.0D * Math.PI / 4.0D;
-	private static Random random = new Random();
+	private static Random random = new SecureRandom();
 	
 	static
 	{
@@ -292,7 +293,7 @@ public class Maths
 	
 	public static void updateRandom()
 	{
-		updateRandom(new Random());
+		updateRandom(new SecureRandom());
 	}
 	
 	public static void updateRandom(Random rand)
